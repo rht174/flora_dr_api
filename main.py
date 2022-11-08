@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -9,4 +9,4 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, port=4000)
