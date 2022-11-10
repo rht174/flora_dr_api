@@ -1,11 +1,14 @@
+import werkzeug
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 
-@app.route('/api', methods=['GET'])
+@app.route('/predict', methods=['GET'])
 def prediction():
-    pass
+    if request.method == 'POST':
+        imagefile = request.files['image']
+        return jsonify({'message': 'image received successfully'})
 
 
 if __name__ == "__main__":
