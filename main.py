@@ -1,7 +1,4 @@
-import json
-
-import werkzeug
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
