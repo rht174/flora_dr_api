@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from keras.applications.mobilenet_v2 import decode_predictions
+
 
 app = Flask(__name__)
 
@@ -64,4 +64,4 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
