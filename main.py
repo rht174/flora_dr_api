@@ -1,3 +1,5 @@
+import json
+
 import werkzeug
 from flask import Flask, request, jsonify, render_template
 import numpy as np
@@ -15,33 +17,50 @@ classes_dict = {'apple': ['Scab', 'Black Rot', 'Cedar Apple Rust', 'Healthy'],
                 'tea': ['Bird Eye Spot', 'Brown Blight', 'Healthy', 'Red Leaf Spot'],
                 'tomato': ['Late Blight', 'Bacterial Spot', 'Early Blight', 'Healthy']}
 
+plant_name = None
+health = None
+confidence = None
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
+
+# @app.route('/', methods=['GET'])
+# def index():
+#     return render_template('index.html')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def prediction():
+    global plant_name, health, confidence
+
     if request.method == 'POST':
         imagefile = request.files['image']
         temp_path = 'temp/temp_image.jpg'
         imagefile.save(temp_path)
-        plant = request.form['plant']
+        # plant = request.form['plant']
+        x = request.values
+        plant = x['plant']
+        # request_data = request.data
+        # request_data = json.loads(request_data.decode('utf-8'))
+        # plant = request_data['plant']
 
         model = keras.models.load_model(f'models/{plant}.h5')
         img = tf.keras.preprocessing.image.load_img(temp_path, target_size=(224, 224))
         img = tf.keras.utils.img_to_array(img)
         img = img / 255
-        img = np.array([img])
+        img = np.expand_dims(img, axis=0)
         pred = model.predict(img)
         condition = np.argmax(pred)
-        confidence = round(100 * (np.max(pred)), 2)
-
+        plant_name = plant_dict[plant]
         health = classes_dict[plant][condition]
+        confidence = str(round(100 * (np.max(pred)), 2))
+        print(plant_name, health, confidence)
 
-        return render_template('index.html', plant_name=plant_dict[plant], plant_condition=health,
-                               pred_confidence=confidence)
+        return ''
+
+    else:
+        return jsonify({'plant': plant_name, 'health': health, 'confidence': confidence})
+
+        # return render_template('index.html', plant_name=plant_dict[plant], plant_condition=health,
+        #                        pred_confidence=confidence)
 
 
 if __name__ == "__main__":
