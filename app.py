@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
-
 app = Flask(__name__)
 
 plant_dict = {'apple': 'Apple', 'corn': 'Corn', 'grape': 'Grape', 'tea': 'Tea', 'tomato': 'Tomato'}
