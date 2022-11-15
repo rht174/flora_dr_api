@@ -9,7 +9,7 @@ plant_dict = {'apple': 'Apple', 'corn': 'Corn', 'grape': 'Grape', 'tea': 'Tea', 
 
 classes_dict = {'apple': ['Scab', 'Black Rot', 'Cedar Apple Rust', 'Healthy'],
                 'corn': ['Blight', 'Common Rust', 'Gray Leaf Spot', 'Healthy'],
-                'grape': ['Black Rot', 'Black Measles', 'Healthy', 'Leaf Blight Isariopsis Leaf Spot'],
+                'grape': ['Black Rot', 'Black Measles', 'Blight Isariopsis Leaf Spot', 'Healthy'],
                 'tea': ['Bird Eye Spot', 'Brown Blight', 'Healthy', 'Red Leaf Spot'],
                 'tomato': ['Late Blight', 'Bacterial Spot', 'Early Blight', 'Healthy']}
 
